@@ -1,0 +1,53 @@
+model User {
+  id         Int        @id @default(autoincrement())
+  name       String
+  nickname   String     @unique
+  email      String     @unique
+  password   String
+  date_birth DateTime
+  status     UserStatus @default(ACTIVE)
+  user_type  UserType   @default(COMMON)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+model Movie {
+  id             Int          @id @default(autoincrement())
+  name           String
+  director       String
+  year           Int
+  duration       Int // Duração em minutos
+  producer       String
+  classification String
+  poster         String
+  genreid        MovieGenre[] // Relacionamento com a tabela intermediária
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model Genre {
+  id          Int          @id @default(autoincrement())
+  description String
+  movies      MovieGenre[] // Relacionamento com a tabela intermediária
+}
+
+model MovieGenre {
+  id      Int   @id @default(autoincrement())
+  movieId Int
+  genreId Int
+  movie   Movie @relation(fields: [movieId], references: [id])
+  genre   Genre @relation(fields: [genreId], references: [id])
+
+  @@unique([movieId, genreId]) // Garantir que não haja duplicidade
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  BANNED
+}
+
+enum UserType {
+  ADMIN
+  COMMON
+}
