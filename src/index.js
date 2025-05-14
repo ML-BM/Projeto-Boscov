@@ -1,7 +1,9 @@
-/*const express = require('express');
+const express = require('express');
 const path = require('path');
-const prisma = require(path.join(__dirname, '../prisma/prismaClient'));
+const prisma = require('../prisma/prismaClient'); // Corrigido o caminho para o cliente Prisma
 const app = express();
+
+require('dotenv').config();
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('./configs/swaggerConfig');
@@ -38,4 +40,4 @@ app.post('/usuarios', async (req, res) => {
 // Iniciar o servidor
 app.listen(3000, () => {
     console.log('Servidor rodando na porta 3000');
-});*/
+});

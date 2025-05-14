@@ -1,4 +1,4 @@
-/*const z = require('zod')
+const z = require('zod')
 
 const userSchema = z.object({
     name: z.string()
@@ -13,7 +13,16 @@ const userSchema = z.object({
         .min(6, { message: "Senha deve ter pelo menos 6 caracteres" }),
 
     date_birth: z.string()
-        .regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Data de nascimento inválida (use o formato YYYY-MM-DD)" })
+        .regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Data de nascimento inválida (use o formato YYYY-MM-DD)" }),
+
+    nickname: z.string()
+        .min(1, { message: "Apelido é obrigatório" })
+        .max(50, { message: "Apelido deve ter no máximo 50 caracteres" }),
+        
+    user_type: z.enum(["ADMIN", "COMMON"], {
+        errorMap: () => ({ message: "Tipo de usuário inválido (use ADMIN ou COMMON)" }),
+    }).optional(),
+
 }).strict();
 
-module.exports = userSchema*/
+module.exports = userSchema
