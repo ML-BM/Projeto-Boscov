@@ -1,4 +1,4 @@
-const z = require('zod')
+/*const z = require('zod')
 
 const userSchema = z.object({
     name: z.string()
@@ -16,4 +16,4 @@ const userSchema = z.object({
         .regex(/^\d{4}-\d{2}-\d{2}$/, { message: "Data de nascimento inválida (use o formato YYYY-MM-DD)" })
 }).strict();
 
-module.exports = userSchema
+module.exports = userSchema*/

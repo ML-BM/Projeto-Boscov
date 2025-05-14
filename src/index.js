@@ -1,8 +1,17 @@
-const express = require('express');
-const prisma = require('./prisma/prismaClient');
+/*const express = require('express');
+const path = require('path');
+const prisma = require(path.join(__dirname, '../prisma/prismaClient'));
 const app = express();
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('./configs/swaggerConfig');
+const usuariosRouters = require('./users/routes'); // Corrigido o caminho para a pasta correta
+
 app.use(express.json());
+
+// Rota para a documentação do Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/usuarios', usuariosRouters);
 
 // Rota para criar um novo usuário
 app.post('/usuarios', async (req, res) => {
@@ -29,4 +38,4 @@ app.post('/usuarios', async (req, res) => {
 // Iniciar o servidor
 app.listen(3000, () => {
     console.log('Servidor rodando na porta 3000');
-});
+});*/
