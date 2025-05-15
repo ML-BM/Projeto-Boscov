@@ -1,8 +1,8 @@
-const prisma = require('../../prisma/prismaClient'); // Caminho corrigido para o prismaClient
+const prisma = require('../../prisma/prismaClient');
 const { StatusCodes } = require('http-status-codes');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const userSchema = require('./userSchema'); // Importar o schema de validação
+const userSchema = require('./userSchema');
 
 // Função para registrar um usuário
 const register = async (req, res) => {
@@ -12,7 +12,7 @@ const register = async (req, res) => {
 
         const { name, nickname, email, password, date_birth, user_type } = validatedData;
 
-        console.log(nickname + " " + user_type)
+        console.log(nickname + " " + user_type);
 
         // Verificar se o email já está em uso
         const existingUser = await prisma.user.findUnique({ where: { email } });
@@ -85,4 +85,82 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { register, login };
+// Função para listar todos os usuários
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await prisma.user.findMany();
+        res.status(StatusCodes.OK).json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Erro ao listar usuários.' });
+    }
+};
+
+// Função para atualizar o usuário
+const updateUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const validatedData = userSchema.partial().parse(req.body); // Permitir campos opcionais
+
+        // Verificar se o usuário existe
+        const existingUser = await prisma.user.findUnique({ where: { id: Number(id) } });
+        if (!existingUser) {
+            return res.status(StatusCodes.NOT_FOUND).json({ error: 'Usuário não encontrado.' });
+        }
+
+        // Atualizar o usuário
+        const updatedUser = await prisma.user.update({
+            where: { id: Number(id) },
+            data: validatedData,
+        });
+
+        res.status(StatusCodes.OK).json({ message: 'Usuário atualizado com sucesso.', updatedUser });
+    } catch (error) {
+        if (error.name === 'ZodError') {
+            return res.status(StatusCodes.BAD_REQUEST).json({ error: error.errors });
+        }
+        console.error(error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Erro ao atualizar o usuário.' });
+    }
+};
+
+// Função para listar um usuário
+const getUserById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Verificar se o usuário existe
+        const user = await prisma.user.findUnique({ where: { id: Number(id) } });
+        if (!user) {
+            return res.status(StatusCodes.NOT_FOUND).json({ error: 'Usuário não encontrado.' });
+        }
+
+        res.status(StatusCodes.OK).json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Erro ao buscar usuário.' });
+    }
+};
+
+// Função para remover um usuário
+const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Verificar se o usuário existe
+        const existingUser = await prisma.user.findUnique({ where: { id: Number(id) } });
+        if (!existingUser) {
+            return res.status(StatusCodes.NOT_FOUND).json({ error: 'Usuário não encontrado.' });
+        }
+
+        // Remover o usuário
+        await prisma.user.delete({ where: { id: Number(id) } });
+
+        res.status(StatusCodes.OK).json({ message: 'Usuário removido com sucesso.' });
+    } catch (error) {
+        console.error(error);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Erro ao remover usuário.' });
+    }
+};
+
+module.exports = { register, login, deleteUser, updateUser, getAllUsers, getUserById };

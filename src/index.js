@@ -1,13 +1,13 @@
 const express = require('express');
 const path = require('path');
-const prisma = require('../prisma/prismaClient'); // Corrigido o caminho para o cliente Prisma
+const prisma = require('../prisma/prismaClient'); 
 const app = express();
 
 require('dotenv').config();
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('./configs/swaggerConfig');
-const usuariosRouters = require('./users/routes'); // Corrigido o caminho para a pasta correta
+const usuariosRouters = require('./users/routes'); 
 
 app.use(express.json());
 
