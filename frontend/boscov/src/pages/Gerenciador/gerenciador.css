@@ -1,0 +1,9 @@
+html, body, #root {
+  height: 100%;
+}
+
+.add-filme-center {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}

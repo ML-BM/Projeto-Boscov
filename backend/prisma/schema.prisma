@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int        @id @default(autoincrement())
+  name       String
+  nickname   String     @unique
+  email      String     @unique
+  password   String
+  date_birth DateTime
+  status     UserStatus @default(ACTIVE)
+  user_type  UserType   @default(COMMON)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  reviews    Review[]   // <-- só para facilitar queries Prisma
+}
+
+model Movie {
+  id             Int          @id @default(autoincrement())
+  name           String
+  director       String
+  year           Int
+  duration       Int
+  producer       String
+  classification String
+  poster         String
+  genreid        MovieGenre[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  reviews        Review[]
+}
+
+model Genre {
+  id          Int          @id @default(autoincrement())
+  description String
+  movies      MovieGenre[] // Relacionamento com a tabela intermediária
+}
+
+model MovieGenre {
+  id      Int   @id @default(autoincrement())
+  movieId Int
+  genreId Int
+  movie   Movie @relation(fields: [movieId], references: [id])
+  genre   Genre @relation(fields: [genreId], references: [id])
+
+  @@unique([movieId, genreId]) // Garantir que não haja duplicidade
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  BANNED
+}
+
+enum UserType {
+  ADMIN
+  COMMON
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  comment   String
+  rating    Int
+  userId    Int
+  movieId   Int
+  user      User     @relation(fields: [userId], references: [id])
+  movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
