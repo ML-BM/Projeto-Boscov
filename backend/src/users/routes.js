@@ -6,6 +6,61 @@ const jwt = require('jsonwebtoken');
 
 const SECRET = process.env.JWT_SECRET || 'seuSegredoSuperSecreto';
 
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     summary: Login do usuário
+ *     tags: [Usuários]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login realizado com sucesso
+ *       401:
+ *         description: Credenciais inválidas
+ */
+
+/**
+ * @swagger
+ * /users/register:
+ *   post:
+ *     summary: Cadastro de usuário
+ *     tags: [Usuários]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               nickname:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               date_birth:
+ *                 type: string
+ *                 format: date
+ *     responses:
+ *       201:
+ *         description: Usuário cadastrado com sucesso
+ *       400:
+ *         description: Dados inválidos
+ */
+
 // Middleware para autenticar e decodificar o token JWT
 function authenticateToken(req, res, next) {
   const authHeader = req.headers.authorization;

@@ -33,7 +33,15 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="home-container">
+      <main
+        className="home-container"
+        style={{
+          maxWidth: "80%",
+          margin: "0 auto",
+          width: "100%",
+          minHeight: "100vh",
+        }}
+      >
         <div className="home-search">
           <input
             type="text"

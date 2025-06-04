@@ -25,6 +25,15 @@ type Props = {
   onCancel: () => void;
 };
 
+const classificationOptions = [
+  "livre",
+  "10 anos",
+  "12 anos",
+  "14 anos",
+  "16 anos",
+  "18 anos"
+];
+
 export default function MovieForm({ genres, movie, onSuccess, onCancel }: Props) {
   const [form, setForm] = useState({
     name: "",
@@ -112,7 +121,19 @@ export default function MovieForm({ genres, movie, onSuccess, onCancel }: Props)
       <input name="year" type="number" value={form.year} onChange={handleChange} placeholder="Ano" required />
       <input name="duration" type="number" value={form.duration} onChange={handleChange} placeholder="Duração (min)" required />
       <input name="producer" value={form.producer} onChange={handleChange} placeholder="Produtor" required />
-      <input name="classification" value={form.classification} onChange={handleChange} placeholder="Classificação" required />
+      {/* Classificação indicativa como dropdown */}
+      <select
+        name="classification"
+        value={form.classification}
+        onChange={handleChange}
+        required
+        style={{ marginBottom: 8, width: "100%", padding: 8, borderRadius: 4, border: "1px solid #ccc" }}
+      >
+        <option value="">Selecione a classificação</option>
+        {classificationOptions.map(opt => (
+          <option key={opt} value={opt}>{opt}</option>
+        ))}
+      </select>
       <input name="poster" value={form.poster} onChange={handleChange} placeholder="Poster (URL)" required />
       <div>
         <label>Gêneros:</label>
@@ -130,7 +151,7 @@ export default function MovieForm({ genres, movie, onSuccess, onCancel }: Props)
         </div>
       </div>
       <button type="submit">{movie ? "Salvar Alterações" : "Adicionar Filme"}</button>
-      <button type="button" onClick={onCancel} style={{ marginLeft: 8 }}>Cancelar</button>
+      <button type="button" onClick={onCancel}>Cancelar</button>
       {error && <div style={{ color: "red", marginTop: 8 }}>{error}</div>}
     </form>
   );

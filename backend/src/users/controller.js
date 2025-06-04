@@ -27,6 +27,8 @@ const login = async (req, res) => {
         id: user.id,
         email: user.email,
         user_type: user.user_type,
+        name: user.name,           // <-- Adicione se quiser mostrar o nome também
+        nickname: user.nickname,   // <-- ESSENCIAL para aparecer no frontend!
       },
     });
   } catch (error) {
@@ -61,7 +63,13 @@ const register = async (req, res) => {
       .status(201)
       .json({
         message: "Usuário cadastrado com sucesso!",
-        user: { id: user.id, email: user.email, user_type: user.user_type },
+        user: {
+          id: user.id,
+          email: user.email,
+          user_type: user.user_type,
+          name: user.name,           // <-- Adicione se quiser mostrar o nome também
+          nickname: user.nickname,   // <-- ESSENCIAL para aparecer no frontend!
+        },
       });
   } catch (error) {
     return res.status(400).json({ error: error.errors ? error.errors[0].message : error.message });

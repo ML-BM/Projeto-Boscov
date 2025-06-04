@@ -85,12 +85,42 @@ export default function Gerenciador() {
     fetchMovies();
   };
 
+  const buttonStyle = {
+    background: "#FF0000",
+    color: "#fff",
+    border: "none",
+    borderRadius: 4,
+    fontWeight: "bold",
+    fontSize: "1rem",
+    padding: "8px 20px",
+    cursor: "pointer",
+    transition: "background 0.2s",
+    marginRight: 8,
+  };
+
+  const buttonStyleSecondary = {
+    ...buttonStyle,
+    background: "#6c757d", // cinza para "Fechar", se quiser diferenciar
+  };
+
+  const buttonStyleDelete = {
+    ...buttonStyle,
+    background: "#c40000", // vermelho mais escuro para "Excluir"
+  };
+
   return (
     <>
       <Navbar />
-      <main>
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
-          <button onClick={handleAdd}>Adicionar Novo Filme</button>
+      <main style={{ minHeight: "100vh", maxWidth: "80%", margin: "0 auto", width: "100%" }}>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: 32, marginBottom: 16 }}>
+          <button
+            onClick={handleAdd}
+            style={buttonStyle}
+            onMouseOver={e => (e.currentTarget.style.background = "#c40000")}
+            onMouseOut={e => (e.currentTarget.style.background = "#FF0000")}
+          >
+            Adicionar Novo Filme
+          </button>
         </div>
         <div className="home-movie-list" style={{ marginTop: "2rem" }}>
           {movies.map((movie) => (
@@ -127,9 +157,30 @@ export default function Gerenciador() {
         {/* Opções ao clicar em um filme */}
         {selectedMovie && (
           <div style={{ marginTop: 24, textAlign: "center" }}>
-            <button onClick={handleEdit} style={{ marginRight: 8 }}>Editar</button>
-            <button onClick={() => handleDelete(selectedMovie.id)} style={{ background: "#c40000", color: "#fff" }}>Excluir</button>
-            <button onClick={handleClose} style={{ marginLeft: 8 }}>Fechar</button>
+            <button
+              onClick={handleEdit}
+              style={buttonStyle}
+              onMouseOver={e => (e.currentTarget.style.background = "#c40000")}
+              onMouseOut={e => (e.currentTarget.style.background = "#FF0000")}
+            >
+              Editar
+            </button>
+            <button
+              onClick={() => handleDelete(selectedMovie.id)}
+              style={buttonStyleDelete}
+              onMouseOver={e => (e.currentTarget.style.background = "#a30000")}
+              onMouseOut={e => (e.currentTarget.style.background = "#c40000")}
+            >
+              Excluir
+            </button>
+            <button
+              onClick={handleClose}
+              style={buttonStyleSecondary}
+              onMouseOver={e => (e.currentTarget.style.background = "#495057")}
+              onMouseOut={e => (e.currentTarget.style.background = "#6c757d")}
+            >
+              Fechar
+            </button>
           </div>
         )}
         {/* Modal para adicionar/editar */}

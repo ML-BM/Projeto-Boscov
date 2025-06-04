@@ -3,6 +3,57 @@ const router = express.Router();
 const isAdmin = require('../middlewares/isAdmin');
 const movieService = require('./service');
 
+/**
+ * @swagger
+ * /movies:
+ *   get:
+ *     summary: Lista todos os filmes
+ *     tags: [Filmes]
+ *     responses:
+ *       200:
+ *         description: Lista de filmes
+ */
+
+/**
+ * @swagger
+ * /movies:
+ *   post:
+ *     summary: Cria um novo filme (apenas ADMIN)
+ *     tags: [Filmes]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               director:
+ *                 type: string
+ *               year:
+ *                 type: integer
+ *               duration:
+ *                 type: integer
+ *               producer:
+ *                 type: string
+ *               classification:
+ *                 type: string
+ *               poster:
+ *                 type: string
+ *               genreIds:
+ *                 type: array
+ *                 items:
+ *                   type: integer
+ *     responses:
+ *       201:
+ *         description: Filme criado
+ *       400:
+ *         description: Erro ao criar filme
+ */
+
 // Listar todos os filmes (GET /movies)
 router.get('/', async (req, res) => {
     try {

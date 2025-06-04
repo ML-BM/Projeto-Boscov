@@ -20,10 +20,13 @@ export default function LoginPage() {
     setError("");
     try {
       const response = await api.post("/users/login", form);
+      console.log(response.data.user); // <-- Adicione aqui!
       localStorage.setItem("token", response.data.token);
-      // Salve o tipo de usuário corretamente:
       if (response.data.user?.user_type) {
         localStorage.setItem("role", response.data.user.user_type);
+      }
+      if (response.data.user?.name) {
+        localStorage.setItem("name", response.data.user.name);
       }
       setMsg("Login realizado com sucesso!");
       navigate("/home");

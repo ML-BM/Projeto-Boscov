@@ -5,6 +5,34 @@ const jwt = require('jsonwebtoken');
 
 const SECRET = process.env.JWT_SECRET || 'seuSegredoSuperSecreto';
 
+/**
+ * @swagger
+ * /reviews:
+ *   post:
+ *     summary: Cria uma avaliação (usuário autenticado)
+ *     tags: [Avaliações]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               comment:
+ *                 type: string
+ *               rating:
+ *                 type: integer
+ *               movieId:
+ *                 type: integer
+ *     responses:
+ *       201:
+ *         description: Avaliação criada
+ *       401:
+ *         description: Não autenticado
+ */
+
 // Middleware de autenticação
 function authenticateToken(req, res, next) {
   const authHeader = req.headers.authorization;
