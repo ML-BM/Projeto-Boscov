@@ -54,6 +54,73 @@ const movieService = require('./service');
  *         description: Erro ao criar filme
  */
 
+/**
+ * @swagger
+ * /movies/{id}:
+ *   get:
+ *     summary: Busca filme por ID
+ *     tags: [Filmes]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Filme encontrado
+ *       404:
+ *         description: Filme não encontrado
+ */
+
+/**
+ * @swagger
+ * /movies/{id}:
+ *   put:
+ *     summary: Atualiza um filme (apenas ADMIN)
+ *     tags: [Filmes]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: Filme atualizado
+ *       400:
+ *         description: Erro ao atualizar filme
+ */
+
+/**
+ * @swagger
+ * /movies/{id}:
+ *   delete:
+ *     summary: Exclui um filme (apenas ADMIN)
+ *     tags: [Filmes]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       204:
+ *         description: Filme excluído
+ *       400:
+ *         description: Erro ao excluir filme
+ */
+
 // Listar todos os filmes (GET /movies)
 router.get('/', async (req, res) => {
     try {

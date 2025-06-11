@@ -49,12 +49,17 @@
   box-shadow: 0 4px 24px rgba(0,0,0,0.18), 0 1.5px 6px rgba(0,0,0,0.22);
   border-radius: 12px;
   background: #fff;
-  transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s, transform 0.2s;
   overflow: hidden;
   text-align: center;
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
+}
+
+.home-movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.22), 0 3px 12px rgba(0,0,0,0.24);
 }
 
 .home-movie-poster {
@@ -71,7 +76,10 @@
 
 @media (max-width: 600px) {
   .home-movie-card {
-    width: 95vw !important;
+    width: 70vw !important;
     min-width: 0 !important;
+  }
+  .home-movie-poster {
+    height: 500px !important;
   }
 }

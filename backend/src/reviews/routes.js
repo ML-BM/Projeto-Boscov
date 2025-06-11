@@ -33,6 +33,23 @@ const SECRET = process.env.JWT_SECRET || 'seuSegredoSuperSecreto';
  *         description: Não autenticado
  */
 
+/**
+ * @swagger
+ * /reviews/movie/{movieId}:
+ *   get:
+ *     summary: Lista avaliações de um filme
+ *     tags: [Avaliações]
+ *     parameters:
+ *       - in: path
+ *         name: movieId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Lista de avaliações
+ */
+
 // Middleware de autenticação
 function authenticateToken(req, res, next) {
   const authHeader = req.headers.authorization;

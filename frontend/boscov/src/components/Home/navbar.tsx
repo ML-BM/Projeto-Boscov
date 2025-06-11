@@ -9,7 +9,6 @@ export default function Navbar() {
   const [avatarHover, setAvatarHover] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Pegue o nome real do usuário do localStorage
   const user = {
     name: localStorage.getItem("name") || "Usuário",
     nickname: localStorage.getItem("nickname") || "",
@@ -17,7 +16,6 @@ export default function Navbar() {
     user_type: role || "",
   };
 
-  // Fecha o dropdown ao clicar fora
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -50,7 +48,7 @@ export default function Navbar() {
       }}
     >
       <div className="container-fluid" style={{ alignItems: "center", display: "flex" }}>
-        {/* Logo */}
+        {}
         <span
           style={{
             color: "#DC3545",
@@ -62,7 +60,7 @@ export default function Navbar() {
         >
           BOSCOV
         </span>
-        {/* Centraliza os links */}
+        {}
         <div style={{ flex: 1, display: "flex", justifyContent: "center" }}>
           <ul className="navbar-nav flex-row gap-3" style={{ alignItems: "center", margin: 0 }}>
             <li className="nav-item">
@@ -79,7 +77,7 @@ export default function Navbar() {
             )}
           </ul>
         </div>
-        {/* Avatar e Dropdown */}
+        {}
         <div
           className="d-flex align-items-center"
           ref={dropdownRef}
@@ -148,7 +146,7 @@ export default function Navbar() {
           )}
         </div>
       </div>
-      {/* FadeIn animation inline */}
+      {}
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(-10px);}

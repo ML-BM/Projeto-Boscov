@@ -71,7 +71,7 @@ export default function RegisterForm() {
         <input name="email" type="email" placeholder="E-mail" value={form.email} onChange={handleChange} />
         <input name="password" type="password" placeholder="Senha" value={form.password} onChange={handleChange} />
         <input name="date_birth" type="date" placeholder="Data de nascimento" value={form.date_birth} onChange={handleChange} />
-        {/* user_type não é mais selecionável */}
+        {}
         <button type="submit">Cadastrar</button>
         {msg && <p>{msg}</p>}
         {validationErrors.length > 0 && (

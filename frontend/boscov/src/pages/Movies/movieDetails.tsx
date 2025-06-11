@@ -45,7 +45,6 @@ export default function MovieDetails() {
       );
       setComment("");
       setRating(5);
-      // Atualiza avaliações
       const res = await api.get!(`/reviews/movie/${id}`);
       setReviews(res.data);
     } catch (err: any) {
